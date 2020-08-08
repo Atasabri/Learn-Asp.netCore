@@ -1,0 +1,55 @@
+﻿@model Employee
+
+@{
+    ViewBag.Title = "Employee Details";
+}
+
+<h2></h2>
+
+<div>
+    <h4></h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Model.Name
+        </dd>
+
+        <dt>
+            Email
+        </dt>
+
+        <dd>
+            @Model.Email
+        </dd>
+        <dt>
+            Phone
+        </dt>
+
+        <dd>
+            @Model.Phone
+        </dd>
+        <dt>
+            Password
+        </dt>
+
+        <dd>
+            @Model.Password
+        </dd>
+        <dt>
+            DateofBirth
+        </dt>
+
+        <dd>
+            @Model.DateofBirth
+        </dd>
+    </dl>
+</div>
+<p>
+    <a asp-action="Edit" asp-route-ID="@Model.ID">Edit</a> |
+    <a asp-action="Index" >Home</a>
+</p>
+

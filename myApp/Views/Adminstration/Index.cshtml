@@ -1,0 +1,42 @@
+﻿@model IEnumerable<IdentityRole>
+@inject IAuthorizationService authorizationService
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool IsInClaim = (await authorizationService.AuthorizeAsync(User, "CUDRole")).Succeeded;
+}
+
+<h1>Roles</h1>
+@if (IsInClaim)
+{
+    <a asp-action="Create" asp-controller="Adminstration">Add New Role</a>
+}
+<table class="table" id="tbl">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        <tr></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr id="@item.Id">
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            @if (IsInClaim)
+            {
+                <td>
+                    <form asp-action="Delete" asp-route-ID="@item.Id" method="post">
+                        <a asp-action="Edit" asp-route-RoleID="@item.Id" class="btn btn-info">Edit</a>
+                        <button type="submit" onclick="return confirm('Are You Sure You Want To Delete This Role?')" class="btn btn-info">Delete</button>
+                    </form>
+                </td>
+            }
+
+        </tr>
+        }
+    </tbody>
+
+</table>
+

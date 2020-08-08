@@ -1,0 +1,42 @@
+﻿@model ManageUserClaimsViewModel
+
+@{
+    ViewData["Title"] = "Manage Claims";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Manage Claims</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ManageClaims">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserId" />
+            <h3>Claims</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    @for (int i = 0; i < Model.Claims.Count; i++)
+                    {
+                        <div class="form-check m-1">
+                            <input type="hidden" asp-for="@Model.Claims[i].Type" />
+                            <input type="hidden" asp-for="@Model.Claims[i].Value" />
+                            <input type="checkbox" class="form-check-input" asp-for="@Model.Claims[i].IsSelected" />
+                            <label for="@Model.Claims[i].IsSelected" class="form-check-label">@Model.Claims[i].Type</label>
+                        </div>
+
+                    }
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Users">Back to List</a>
+</div>
+

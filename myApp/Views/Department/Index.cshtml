@@ -1,0 +1,55 @@
+﻿@model List<Department>
+
+@{
+    ViewBag.Title = "All Departments";
+}
+
+
+
+<table class="table" id="tbl">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Photo</th>
+        <tr></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.ID">
+                <td>@item.Name</td>
+                <td><img src="~/Uploads/@(item.ID).jpg" width="70" height="70" asp-append-version="true" /></td>
+                <td><a asp-controller="Department" asp-action="Details" asp-route-ID="@item.ID" class="btn btn-block">View</a></td>
+                <td><a asp-controller="Department" asp-action="Edit" asp-route-ID="@item.ID" class="btn btn-info">Edit</a></td>
+                <td>
+                    <button onclick="Delete(@(item.ID));" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+
+
+<script>
+    function Delete(i) {
+
+        var Confirmed = confirm('Are You Sure You Want To Delete ??');
+
+        if (Confirmed == true) {
+            $.post("@Url.Action("Delete", "Department")", {
+
+                ID: i
+            },
+                function (data) {
+            $("#tbl tr#" + data + "").remove();
+        }
+
+          )
+        }
+    }
+
+
+</script>

@@ -1,0 +1,36 @@
+﻿@model Department
+@inject DB _db
+@{
+    ViewBag.Title = "Create Department";
+}
+
+
+
+    <form asp-controller="Department" asp-action="Create" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Photo</label>
+            <div class="col-md-10 custom-file">
+                <input type="file" name="Photo" required class="form-control custom-file-input"  />
+                <label class="custom-file-label">Choose Photo ......</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-info" />
+            </div>
+        </div>
+    </form>
+
+
+
+<h2>Count Of Data => @_db.Departments.Count()</h2>

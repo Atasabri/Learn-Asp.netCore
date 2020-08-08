@@ -1,0 +1,66 @@
+﻿@model List<Employee>
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@{
+    ViewBag.Title = "All Employee";
+    var currentCulture = ViewContext.HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture;
+
+}
+
+@currentCulture
+
+@Localizer["ata"]
+<table class="table" id="tbl">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>DateofBirth</th>
+        <tr></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.ID">
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Phone</td>
+                <td>@item.DateofBirth</td>
+                <td><a asp-controller="Home" asp-action="Details" asp-route-ID="@item.ID" class="btn btn-block">View</a></td>
+                <td><a asp-controller="Home" asp-action="Edit" asp-route-ID="@item.ID" class="btn btn-info">Edit</a></td>
+                <td><button onclick="Delete(@(item.ID));" class="btn btn-danger">Delete</button></td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+
+
+
+
+<script>
+    function Delete(i) {
+
+        var Confirmed = confirm('Are You Sure You Want To Delete ??');
+
+        if (Confirmed == true) {
+            $.post("@Url.Action("Delete", "Home")", {
+
+                ID: i
+            },
+                function (data) {
+            $("#tbl tr#" + data + "").remove();
+        }
+
+          )
+        }
+    }
+
+
+</script>

@@ -1,0 +1,96 @@
+﻿@inject SignInManager<IdentityUser> signinmanager
+
+@inject IAuthorizationService authorizationService
+@inject UserManager<IdentityUser> usermanager
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <environment include="Development">
+        <link href="~/css/bootstrap.css" rel="stylesheet" />
+        <script src="~/js/bootstrap.js"></script>
+        <script src="~/lib/jquery/jquery.js"></script>
+        <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <link href="~/css/bootstrap.css" rel="stylesheet" />
+        <script src="~/js/bootstrap.js"></script>
+        <script src="~/lib/jquery/jquery.js"></script>
+
+    </environment>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+
+                @if (signinmanager.IsSignedIn(User))
+                {
+                    <li class="nav-item active">
+                        <a asp-controller="Home" asp-action="Index" class="nav-link">Employee <span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a asp-controller="Department" asp-action="Index" class="nav-link">Departments <span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="Account" asp-action="Logout" class="nav-link">Log out <span class="sr-only"></span></a>
+                    </li>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Adminstration" asp-action="Index" class="nav-link">Adminstration<span class="sr-only"></span></a>
+                        </li>
+                        @if ((await authorizationService.AuthorizeAsync(User, "Users")).Succeeded)
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Adminstration" asp-action="Users" class="nav-link">Users<span class="sr-only"></span></a>
+                            </li>
+                        }
+
+                    }
+
+                    <a asp-controller="Home" asp-action="Create" class="btn btn-outline-success my-2 my-sm-0">Create Employee</a>
+                    <a asp-controller="Department" asp-action="Create" class="btn btn-outline-success my-2 my-sm-0">Create Department</a>
+                    <span>@User.Identity.Name</span>
+                    <li class="nav-item">
+                        <a asp-controller="Account" asp-action="ChangePassword" class="nav-link">Change Password<span class="sr-only"></span></a>
+                    </li>
+                    if (!(await usermanager.IsEmailConfirmedAsync((await usermanager.GetUserAsync(User)))))
+                    {
+                        <a asp-controller="Account" asp-action="RequestConfirmEmail" target="_blank" class="btn btn-outline-success my-2 my-sm-0">Confirm Email</a>
+                    }
+
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a asp-controller="Account" asp-action="Login" class="nav-link">Login <span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="Account" asp-action="Register" class="nav-link">Register <span class="sr-only"></span></a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+       
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+        </footer>
+    </div>
+
+</body>
+</html>

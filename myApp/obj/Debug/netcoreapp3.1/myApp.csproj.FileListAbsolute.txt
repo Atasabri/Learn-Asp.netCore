@@ -1,0 +1,6 @@
+D:\Asp.net Core\myApp\myApp\obj\Debug\netcoreapp3.1\myApp.csprojAssemblyReference.cache
+D:\Asp.net Core\myApp\myApp\obj\Debug\netcoreapp3.1\myApp.MvcApplicationPartsAssemblyInfo.cache
+D:\Asp.net Core\myApp\myApp\obj\Debug\netcoreapp3.1\myApp.AssemblyInfoInputs.cache
+D:\Asp.net Core\myApp\myApp\obj\Debug\netcoreapp3.1\myApp.AssemblyInfo.cs
+D:\Asp.net Core\myApp\myApp\obj\Debug\netcoreapp3.1\myApp.TagHelpers.input.cache
+D:\Asp.net Core\myApp\myApp\obj\Debug\netcoreapp3.1\myApp.TagHelpers.output.cache

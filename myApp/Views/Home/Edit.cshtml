@@ -1,0 +1,54 @@
+﻿@model Employee
+@{
+    ViewBag.Title = "Edit Employee";
+}
+
+
+
+<form asp-controller="Home" asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <div class="col-md-10">
+            <input asp-for="Name" value="@Model.Name" class="form-control" />
+        </div>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <div class="col-md-10">
+            <input asp-for="Email" value="@Model.Email" class="form-control" />
+        </div>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <div class="col-md-10">
+            <input asp-for="Password" value="@Model.Password" class="form-control" />
+        </div>
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <div class="col-md-10">
+            <input asp-for="Phone" value="@Model.Phone" class="form-control" />
+        </div>
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DateofBirth"></label>
+        <div class="col-md-10">
+            <input type="datetime" asp-for="DateofBirth" value="@Model.DateofBirth" class="form-control" />
+        </div>
+        <span asp-validation-for="DateofBirth" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Edit" class="btn btn-info" />
+        </div>
+    </div>
+</form>

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<IdentityUser>
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Users</h1>
+<a asp-action="Register" asp-controller="Account">Add New User</a>
+<table class="table" id="tbl">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        <tr></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.Id">
+                <td>@item.Id</td>
+                <td>@item.UserName</td>
+                <td><a asp-action="ManageClaims" asp-route-UserID="@item.Id" class="btn btn-info">Manage Claims</a></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
